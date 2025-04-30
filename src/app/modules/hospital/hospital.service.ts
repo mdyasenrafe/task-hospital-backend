@@ -10,8 +10,17 @@ const getHospitalsFromDB = async () => {
 };
 
 const getHospitalFromDB = async (id: Types.ObjectId) => {
-  const result = await HospitalModel.findOne({ _id: id });
-  return result;
+  const hospital = await HospitalModel.findById(id);
+
+  if (!hospital) {
+    throw new AppError(httpStatus.NOT_FOUND, "Hospital not found");
+  }
+
+  if (hospital.status === "inactive") {
+    throw new AppError(httpStatus.BAD_REQUEST, "Hospital is deleted");
+  }
+
+  return hospital;
 };
 
 const createHospitalInDB = async (payload: THospital) => {
