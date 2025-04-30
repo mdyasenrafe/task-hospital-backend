@@ -28,6 +28,7 @@ router.get(
 
 router.patch(
   "/:id",
+  authenticateToken(UserRolesObject.admin, UserRolesObject.user),
 
   validateRequest(HospitalValidations.hospitalUpdateSchema),
   HospitalControllers.updateHospital
@@ -35,7 +36,7 @@ router.patch(
 
 router.delete(
   "/:id",
-  authenticateToken(UserRolesObject.admin),
+  authenticateToken(UserRolesObject.admin, UserRolesObject.user),
   HospitalControllers.deleteHospital
 );
 
