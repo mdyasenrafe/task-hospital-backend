@@ -30,14 +30,23 @@ const updateHospitalIntoDB = async (
     );
   }
 
+  const hospital = await HospitalModel.findById(id);
+
+  if (!hospital) {
+    throw new AppError(httpStatus.NOT_FOUND, "Hospital not found");
+  }
+
+  if (hospital.status === "inactive") {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Cannot update a deleted hospital"
+    );
+  }
+
   const result = await HospitalModel.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
   });
-
-  if (!result) {
-    throw new AppError(httpStatus.NOT_FOUND, "Hospital not found");
-  }
 
   return result;
 };
