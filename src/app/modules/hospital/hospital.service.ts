@@ -52,15 +52,21 @@ const updateHospitalIntoDB = async (
 };
 
 const deleteHospitalFromDB = async (id: Types.ObjectId) => {
+  const hospital = await HospitalModel.findById(id);
+
+  if (!hospital) {
+    throw new AppError(httpStatus.NOT_FOUND, "Hospital not found");
+  }
+
+  if (hospital.status === "inactive") {
+    throw new AppError(httpStatus.BAD_REQUEST, "Hospital is already deleted");
+  }
+
   const result = await HospitalModel.findByIdAndUpdate(
     id,
     { status: "inactive" },
     { new: true }
   );
-
-  if (!result) {
-    throw new AppError(httpStatus.NOT_FOUND, "Hospital not found");
-  }
 
   return result;
 };
