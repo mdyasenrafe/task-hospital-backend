@@ -10,6 +10,7 @@ A robust backend system for a hospital booking application built with Node.js, E
 - [Environment Variables](#environment-variables)
 - [API Documentation](#api-documentation)
 - [Important Notes](#important-notes)
+- [Live Deployment](#live-deployment)
 
 ## Features
 - User Authentication (Email/Password)
