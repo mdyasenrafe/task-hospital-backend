@@ -159,10 +159,8 @@ Response:
 ## Important Notes
 
 1. **Authentication**: All protected routes require a JWT token in the Authorization header
-2. **Rate Limiting**: API requests are limited to 100 requests per 15 minutes per IP
-3. **Validation**: All input data is validated using Express Validator
-4. **Error Handling**: The API returns consistent error responses with appropriate HTTP status codes
-5. **Documentation**: API documentation is available at `/api-docs` when running in development mode
+2. **Validation**: All input data is validated using Zod Validator
+3. **Error Handling**: The API returns consistent error responses with appropriate HTTP status codes
 
 ## Error Handling
 
